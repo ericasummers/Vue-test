@@ -11,7 +11,7 @@ _This web page uses Node.js and Vue.js to build out a responsive front end page.
 ## Setup/Installation Requirements
 
 * Run `npm install` to install all dependencies as listed in the package.json and file for project.
-* Open `index.js` in web browser (Chrome recommended).
+* Open `index.html` in web browser (Chrome recommended).
 
 ## Known Bugs
 
