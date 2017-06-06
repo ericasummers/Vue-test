@@ -3,7 +3,7 @@ Vue.component('table-component', {
     })
 
 Vue.component('weather-title', {
-    template: '<p class="api">The weather is: </p>'
+    template: '<p class="api">The weather in Portland, OR is currently: </p>'
 })
 
 window.onload = function() {
@@ -41,7 +41,7 @@ window.onload = function() {
             fetchWeather: function() {
                 this.$http.get('http://api.openweathermap.org/data/2.5/forecast?id=5746545&APPID=742bde82c919119ade40d7d9879ca90e')
                 .then(response => {
-                    this.showWeather = response.bodyText;
+                    this.showWeather = response.data.list[0].weather[0].description + ' with a temperature of ' + (response.data.list[0].main.temp * (9/5) - 459.67).toFixed(2) + ' degrees Fahrenheit';
                     console.log(response);
                 })
                 .error((err) => console.log(err))
