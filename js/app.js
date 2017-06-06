@@ -2,7 +2,7 @@ Vue.component('table-component', {
         template: '<p class="table">This is a table</p>'
     })
 
-Vue.component('api-component', {
+Vue.component('weather-title', {
     template: '<p class="api">The weather is: </p>'
 })
 
@@ -25,21 +25,24 @@ window.onload = function() {
         el: '#table'
     })
 
+    var weathertitle = new Vue({
+        el: '#weather-title'
+    })
+
     var api = new Vue({
         el: '#api',
         data: {
-            result: []
+            showWeather: []
         },
         created: function() {
-            this.showWeather();
+            this.fetchWeather();
         },
         methods: {
-            showWeather: function() {
+            fetchWeather: function() {
                 this.$http.get('http://api.openweathermap.org/data/2.5/forecast?id=5746545&APPID=742bde82c919119ade40d7d9879ca90e')
-                .then(function(response) {
-                    this.result = response.bodyText.list;
+                .then(response => {
+                    this.showWeather = response.bodyText;
                     console.log(response);
-                    console.log(response.bodyText.list);
                 })
                 .error((err) => console.log(err))
             }
