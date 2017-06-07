@@ -69,7 +69,6 @@ window.onload = function() {
                     .then(response => {
                         for (var i = 0; i < response.data.length; i++) {
                             this.groupIDs.push(response.data[i].id);
-                            // console.log('merges: ' + response.data[i].id);
                         }
                         console.log(this.groupIDs);
                         return this.groupIDs;
@@ -82,13 +81,13 @@ window.onload = function() {
                             })
                             .then(response => {
                                 for (var i = 0; i < response.data.length; i++) {
-                                    console.log(response.data);
                                     this.projectNames.push(response.data[i].name);
                                 }
                                 console.log(this.projectNames);
                             })
                         }
                     })
+                    // .then(mergerequests) etc
                 }
             }
 
