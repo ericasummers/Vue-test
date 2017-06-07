@@ -59,16 +59,18 @@ window.onload = function() {
         },
         methods: {
             fetchMerges: function() {
-                this.$http.get('https://git.soliddigital.com/api/v3/groups?per_page=100', {
+                for (var j = 1; j < 4; j++) {
+                    this.$http.get(('https://git.soliddigital.com/api/v3/groups?per_page=100&page=' + j), {
                     headers: {'PRIVATE-TOKEN': 'JqDaT9zbaZyWNKXjsB2L'}
-                })
-                .then(response => {
-                    // response.foreach(response.data, function() {
-                    //     this.showMerges.push(id);
-                    // })
-                    this.showMerges.push(response.data[0].id);
-                    console.log('merges: ' + response.data[0].id);
-                })
+                    })
+                    .then(response => {
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.showMerges.push(response.data[i].id);
+                            // console.log('merges: ' + response.data[i].id);
+                        }
+                        console.log(this.showMerges);
+                    })
+                }
             }
         }
     })
