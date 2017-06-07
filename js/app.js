@@ -54,6 +54,7 @@ window.onload = function() {
         data: {
             groupIDs: [],
             projectIDs: [],
+            projectNames: [],
             showMerges: []
         },
         created: function() {
@@ -71,23 +72,23 @@ window.onload = function() {
                             // console.log('merges: ' + response.data[i].id);
                         }
                         console.log(this.groupIDs);
-
+                        return this.groupIDs;
                     })
-                    // takes response - parse out to run through for loop
-                    // .then(output => {
-                    //     for (var j = 0; j < this.groupIDs.length; j++) {
-                    //         this.$http.get('https://git.soliddigital.com/api/v3/groups/' + this.groupIDs[j] + '/projects?per_page=100', {
-                    //             headers: {'PRIVATE-TOKEN': 'JqDaT9zbaZyWNKXjsB2L'}
-                    //         })
-                    //         .then(response => {
-                    //             for (var i = 0; i < response.data.length; i++) {
-                    //                 console.log(response.data);
-                    //                 this.projectIDS.push(response.data[i].id);
-                    //             }
-                    //             console.log(this.projectIDS);
-                    //         })
-                    //     }
-                    // })
+
+                    .then(groups => {
+                        for (var j = 0; j < groups.length; j++) {
+                            this.$http.get('https://git.soliddigital.com/api/v3/groups/' + groups[j] + '/projects?per_page=100', {
+                                headers: {'PRIVATE-TOKEN': 'JqDaT9zbaZyWNKXjsB2L'}
+                            })
+                            .then(response => {
+                                for (var i = 0; i < response.data.length; i++) {
+                                    console.log(response.data);
+                                    this.projectNames.push(response.data[i].name);
+                                }
+                                console.log(this.projectNames);
+                            })
+                        }
+                    })
                 }
             }
 
