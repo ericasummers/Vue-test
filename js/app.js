@@ -55,6 +55,7 @@ window.onload = function() {
             groupIDs: [],
             projectIDs: [],
             projectNames: [],
+            mergeRequests: [],
             showMerges: []
         },
         created: function() {
@@ -70,24 +71,39 @@ window.onload = function() {
                         for (var i = 0; i < response.data.length; i++) {
                             this.groupIDs.push(response.data[i].id);
                         }
-                        console.log(this.groupIDs);
+                        // console.log(this.groupIDs);
                         return this.groupIDs;
                     })
 
                     .then(groups => {
-                        for (var j = 0; j < groups.length; j++) {
-                            this.$http.get('https://git.soliddigital.com/api/v3/groups/' + groups[j] + '/projects?per_page=100', {
+                        for (var j = 0; j < this.groupIDs.length; j++) {
+                            this.$http.get('https://git.soliddigital.com/api/v3/groups/' + this.groupIDs[j] + '/projects?per_page=100', {
                                 headers: {'PRIVATE-TOKEN': 'JqDaT9zbaZyWNKXjsB2L'}
                             })
                             .then(response => {
                                 for (var i = 0; i < response.data.length; i++) {
                                     this.projectNames.push(response.data[i].name);
+                                    this.projectIDs.push(response.data[i].id);
                                 }
-                                console.log(this.projectNames);
+                                // console.log(this.projectNames);
+                                return this.projectIDs;
                             })
                         }
                     })
-                    // .then(mergerequests) etc
+                    .then(projects => {
+                        for (var j = 0; j < this.projectIDs.length; j++) {
+                            this.$http.get('https://git.soliddigital.com/api/v3/projects/' + this.projectIDs[j] + '/merge_requests?state=all&per_page=100', {
+                                headers: {'PRIVATE-TOKEN': ''}
+                            })
+                            .then(response => {
+                                for (var i = 0; i < response.data.length; i++) {
+                                    // this.mergeRequests.push(response.data[i].username);
+                                    console.log(response.data[i]);
+                                }
+                                console.log(this.mergeRequests);
+                            })
+                        }
+                    })
                 }
             }
 
