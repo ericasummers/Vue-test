@@ -93,14 +93,15 @@ window.onload = function() {
                     .then(projects => {
                         for (var j = 0; j < this.projectIDs.length; j++) {
                             this.$http.get('https://git.soliddigital.com/api/v3/projects/' + this.projectIDs[j] + '/merge_requests?state=all&per_page=100', {
-                                headers: {'PRIVATE-TOKEN': ''}
+                                headers: {'PRIVATE-TOKEN': 'JqDaT9zbaZyWNKXjsB2L'}
                             })
                             .then(response => {
                                 for (var i = 0; i < response.data.length; i++) {
-                                    // this.mergeRequests.push(response.data[i].username);
+                                    this.mergeRequests.push(response.data[i].author.username);
                                     console.log(response.data[i]);
                                 }
                                 console.log(this.mergeRequests);
+                                return this.mergeRequests;
                             })
                         }
                     })
