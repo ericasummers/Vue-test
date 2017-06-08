@@ -1,5 +1,3 @@
-var privateToken = 'JqDaT9zbaZyWNKXjsB2L';
-
 Vue.component('table-component', {
         template: '<p class="table">This is a table</p>'
     })
@@ -67,7 +65,8 @@ window.onload = function() {
             fetchGroups: function() {
                 for (var j = 1; j < 4; j++) {
                     this.$http.get(('https://git.soliddigital.com/api/v3/groups?per_page=100&page=' + j), {
-                    headers: {'PRIVATE-TOKEN': privateToken}
+                        //privateToken is linked from other JS file
+                        headers: {'PRIVATE-TOKEN': privateToken}
                     })
                     .then(response => {
                         for (var i = 0; i < response.data.length; i++) {
@@ -80,6 +79,7 @@ window.onload = function() {
                     .then(groups => {
                         for (var j = 0; j < this.groupIDs.length; j++) {
                             this.$http.get('https://git.soliddigital.com/api/v3/groups/' + this.groupIDs[j] + '/projects?per_page=100', {
+                                // privateToken is linked from other JS file
                                 headers: {'PRIVATE-TOKEN': privateToken}
                             })
                             .then(response => {
@@ -96,6 +96,7 @@ window.onload = function() {
                     .then(projects => {
                         for (var j = 0; j < this.projectIDs.length; j++) {
                             this.$http.get('https://git.soliddigital.com/api/v3/projects/' + this.projectIDs[j] + '/merge_requests?state=all&per_page=100', {
+                                //privateToken is linked from other JS file
                                 headers: {'PRIVATE-TOKEN': privateToken}
                             })
                             .then(response => {
