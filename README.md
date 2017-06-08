@@ -13,7 +13,7 @@ _This web page uses Node.js and Vue.js to build out a responsive front end page.
 * Run `npm install` to install all dependencies as listed in the package.json and file for project.
 * Create file in js folder titled: "privateToken.js" and insert global Private Token variable in the following format:
 ```js
-privateToken = 'yourKeyHere;
+privateToken = 'yourKeyHere';
 ```
 * Open `index.html` in web browser (Chrome recommended).
 
